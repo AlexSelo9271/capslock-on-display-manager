@@ -1,0 +1,12 @@
+[Unit]
+Description=Enable Caps Lock LED on display-manager
+After=display-manager.service
+Requires=display-manager.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/enable-capslock
+RemainAfterExit=yes
+
+[Install]
+WantedBy=graphical.target

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+sleep 10
+
+echo "Поиск светодиодов Caps Lock в системе..."
+
+found_leds=0
+for led_path in /sys/class/leds/*capslock/brightness; do
+    if [ -f "$led_path" ]; then
+        echo "Найден и включается: $led_path"
+        echo 1 | sudo tee "$led_path" > /dev/null
+        ((found_leds++))
+    fi
+done
+
+if [ $found_leds -eq 0 ]; then
+    echo "Светодиоды Caps Lock не найдены в системе."
+else
+    echo "Светодиоды Caps Lock включены на всех найденных устройствах ($found_leds шт.)."
+fi
